@@ -1,0 +1,16 @@
+<nav>
+  <ul class="flex justify-around items-center bg-black text-white h-[80px]">
+    <div class="">
+      <a><li class="text-xl">Blog-App-Angular</li></a>
+    </div>
+    <div class="flex justify-center items-center gap-10 text-md">
+      <a href="/"><li class="cursor-pointer">หน้าหลัก</li></a>
+      @if(isLogin()){
+      <a href="/form"><li class="cursor-pointer">โพสต์ Blog</li></a>
+      <li class="cursor-pointer" (click)="logOut()">ออกจากระบบ</li>
+      } @else{
+      <a href="/login"><li class="cursor-pointer">เข้าสู่ระบบ</li></a>
+      }
+    </div>
+  </ul>
+</nav>

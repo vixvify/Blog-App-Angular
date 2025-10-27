@@ -1,0 +1,38 @@
+<div class="flex flex-col justify-center items-center mt-20 gap-5 pb-30">
+  @for (item of data(); track $index) {
+  <div class="flex flex-col w-[700px] border-2 border-black p-5 rounded-md">
+    <h1 class="text-3xl font-medium">{{ item.name }}</h1>
+    <h3 class="text-xl mt-5">
+      {{ item.content }}
+    </h3>
+    <div class="flex justify-between items-center mt-5 gap-2">
+      <div class="flex justify-center items-center gap-5">
+        <div class="">
+          <h4 class="font-semibold">ผู้เขียน</h4>
+          <h5>{{ item.author }}</h5>
+        </div>
+        <div class="">
+          <h4 class="font-semibold">วันที่โพสต์</h4>
+          <h5>{{ item.date }}</h5>
+        </div>
+      </div>
+      @if (id() && id() === item.authorId) {
+      <div class="flex justify-center items-center gap-3">
+        <button
+          class="bg-red-500 p-3 rounded-md text-white cursor-pointer"
+          (click)="confirmDel(item.id!)"
+        >
+          ลบรายการ
+        </button>
+        <button
+          class="bg-blue-700 p-3 rounded-md text-white cursor-pointer"
+          (click)="editData(item.id!)"
+        >
+          แก้ไขรายการ
+        </button>
+      </div>
+      }
+    </div>
+  </div>
+  }
+</div>

@@ -1,0 +1,34 @@
+<div class="flex flex-col justify-center items-center mt-20">
+  <h1 class="text-5xl font-medium">โพสต์ Blog</h1>
+  <form class="flex flex-col mt-10 gap-3" (ngSubmit)="sendData()">
+    <p class="text-xl">ชื่อ Blog</p>
+    <input
+      type="text"
+      class="border-2 border-black w-[400px] h-[40px]"
+      [(ngModel)]="name"
+      name="name"
+    />
+    <p class="text-xl">เนื้อหา</p>
+    <textarea
+      type="text"
+      class="border-2 border-black w-[400px] h-[100px]"
+      [(ngModel)]="content"
+      name="content"
+    >
+    </textarea>
+    <p class="text-xl">ชื่อผู้เขียน</p>
+    <input
+      type="text"
+      class="border-2 border-black w-[400px] h-[40px]"
+      [(ngModel)]="author"
+      name="author"
+    />
+    <button
+      type="submit"
+      class="bg-black p-3 rounded-md text-white mt-5 cursor-pointer disabled:opacity-50"
+      [disabled]="!canSend()"
+    >
+      โพสต์ Blog
+    </button>
+  </form>
+</div>
