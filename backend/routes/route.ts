@@ -7,18 +7,19 @@ import {
   getSingleData,
   updateBlogData,
 } from '../controllers/blogcontrollers';
+import { verifyToken } from '../middleware/verify';
 const router: Router = express.Router();
 
 router.post('/createUserData', createUserData);
 router.post('/login', login);
 
-router.post('/createBlogData', createBlogData);
+router.post('/createBlogData', verifyToken, createBlogData);
 
 router.get('/getBlogData', getBlogData);
-router.get('/getSingleData/:id', getSingleData);
+router.get('/getSingleData/:id', verifyToken, getSingleData);
 
-router.delete('/delBlogData/:id', delBlogData);
+router.delete('/delBlogData/:id', verifyToken, delBlogData);
 
-router.put('/updateBlogData/:id', updateBlogData);
+router.put('/updateBlogData/:id', verifyToken, updateBlogData);
 
 export default router;
