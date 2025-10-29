@@ -4,6 +4,7 @@ import { Token } from '../../services/token.service';
 import { Blog } from '../../types/Blog';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { KeywordService } from '../../services/keyword.service';
 
 @Component({
   selector: 'app-home',
@@ -12,17 +13,24 @@ import { Router } from '@angular/router';
   styleUrl: './home.css',
 })
 export class Home {
-  constructor(private blogservice: Blogservice, private token: Token, private router: Router) {
+  constructor(
+    private blogservice: Blogservice,
+    private token: Token,
+    private router: Router,
+    private keywordservice: KeywordService
+  ) {
     effect(() => {
       this.id.set(this.token.tokenSignal()?.id);
+      this.keyword.set(this.keywordservice.sharedKeyword());
+      this.getData();
     });
-    this.getData();
   }
   data = signal<Blog[]>([]);
   id = signal(this.token.tokenSignal()?.id);
+  keyword = signal(this.keywordservice.sharedKeyword());
 
   getData() {
-    this.blogservice.getData().subscribe({
+    this.blogservice.getData(this.keyword()).subscribe({
       next: (latestData) => {
         this.data.set(latestData.blogData);
       },

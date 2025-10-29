@@ -15,7 +15,7 @@ router.post('/login', login);
 
 router.post('/createBlogData', verifyToken, createBlogData);
 
-router.get('/getBlogData', getBlogData);
+router.get(['/getBlogData', '/getBlogData/:keyword'], getBlogData);
 router.get('/getSingleData/:id', verifyToken, getSingleData);
 
 router.delete('/delBlogData/:id', verifyToken, delBlogData);

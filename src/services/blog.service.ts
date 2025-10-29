@@ -14,8 +14,8 @@ export class Blogservice {
   createBlogData(data: Blog): Observable<any> {
     return this.http.post(`${this.apiUrl}/createBlogData`, data);
   }
-  getData(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/getBlogData`);
+  getData(keyword: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/getBlogData/${keyword}`);
   }
   delData(id: string): Observable<any> {
     return this.http.delete(`${this.apiUrl}/delBlogData/${id}`);

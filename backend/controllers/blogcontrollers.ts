@@ -29,11 +29,22 @@ export const createBlogData = async (req: Request, res: Response) => {
 
 export const getBlogData = async (req: Request, res: Response) => {
   try {
-    const blogData = await prisma.blog.findMany();
-    res.status(200).json({
-      blogData,
-    });
-    return;
+    const { keyword } = req.params;
+    if (!keyword) {
+      const blogData = await prisma.blog.findMany();
+      res.status(200).json({
+        blogData,
+      });
+      return;
+    } else {
+      const blogData = await prisma.blog.findMany({
+        where: { name: { contains: keyword, mode: 'insensitive' } },
+      });
+      res.status(200).json({
+        blogData,
+      });
+      return;
+    }
   } catch (err: any) {
     console.error(err);
     res.status(500).json({ message: 'เกิดข้อผิดพลาด', error: err.message });
