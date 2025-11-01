@@ -28,6 +28,7 @@
     "@angular/forms": "^20.3.0",
     "@angular/platform-browser": "^20.3.0",
     "@angular/router": "^20.3.0",
+    "@fortawesome/fontawesome-free": "^7.1.0",
     "@ng-icons/core": "^32.2.0",
     "@ng-icons/heroicons": "^32.2.0",
     "@prisma/client": "^6.18.0",

@@ -1,0 +1,76 @@
+<div class="flex justify-center items-start mt-20 gap-10 pb-30">
+  @if(data()){
+  <div class="flex flex-col w-[700px] border-2 border-black p-5 rounded-md">
+    <h1 class="text-3xl font-medium">{{ data()?.name }}</h1>
+    <h3 class="text-xl mt-5">
+      {{ data()?.content }}
+    </h3>
+    <div class="flex justify-between items-center mt-5 gap-2">
+      <div class="flex justify-center items-center gap-5">
+        <div class="flex justify-center items-center gap-3">
+          <i class="fa-regular fa-comment fa-xl cursor-pointer"></i>
+        </div>
+        <div class="">
+          <h4 class="font-semibold">ผู้เขียน</h4>
+          <h5>{{ data()?.author }}</h5>
+        </div>
+        <div class="">
+          <h4 class="font-semibold">วันที่โพสต์</h4>
+          <h5>{{ data()?.date }}</h5>
+        </div>
+      </div>
+      @if (id() && id() === data()?.authorId) {
+      <div class="flex justify-center items-center gap-3">
+        <button
+          class="bg-red-500 p-3 rounded-md text-white cursor-pointer"
+          (click)="confirmDel(id())"
+        >
+          ลบรายการ
+        </button>
+        <button
+          class="bg-blue-700 p-3 rounded-md text-white cursor-pointer"
+          (click)="editData(id())"
+        >
+          แก้ไขรายการ
+        </button>
+      </div>
+      }
+    </div>
+  </div>
+  <div class="flex flex-col justify-around items-center">
+    <div class="flex justify-center items-center gap-3">
+      <input type="text" class="border-2 border-black w-[300px] h-[40px]" />
+      <button class="bg-blue-700 p-2 rounded-md text-white">Comment</button>
+    </div>
+    <div class="flex flex-col justify-center items-center gap-5 mt-5">
+      <div
+        class="flex flex-col justify-start items-start w-[400px] border-2 border-black p-3 rounded-md"
+      >
+        <h1 class="font-bold">Vixvify</h1>
+        <h3>
+          simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+          industry's standard dummy text ever since the 1500
+        </h3>
+      </div>
+      <div
+        class="flex flex-col justify-start items-start w-[400px] border-2 border-black p-3 rounded-md"
+      >
+        <h1 class="font-bold">Vixvify</h1>
+        <h3>
+          simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+          industry's standard dummy text ever since the 1500
+        </h3>
+      </div>
+      <div
+        class="flex flex-col justify-start items-start w-[400px] border-2 border-black p-3 rounded-md"
+      >
+        <h1 class="font-bold">Vixvify</h1>
+        <h3>
+          simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+          industry's standard dummy text ever since the 1500
+        </h3>
+      </div>
+    </div>
+  </div>
+  }
+</div>

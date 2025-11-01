@@ -1,12 +1,19 @@
 <div class="flex flex-col justify-center items-center mt-10 gap-5 pb-30">
-  @for (item of data(); track $index) {
+  @if(!isLoading()){
+  <h1 class="text-5xl mt-20">กำลังโหลดข้อมูล...</h1>
+  } @else { @for (item of data(); track $index) {
   <div class="flex flex-col w-[700px] border-2 border-black p-5 rounded-md">
-    <h1 class="text-3xl font-medium">{{ item.name }}</h1>
+    <h1 class="text-3xl font-medium cursor-pointer" (click)="goSingle(item.id!)">
+      {{ item.name }}
+    </h1>
     <h3 class="text-xl mt-5">
       {{ item.content }}
     </h3>
     <div class="flex justify-between items-center mt-5 gap-2">
       <div class="flex justify-center items-center gap-5">
+        <div class="flex justify-center items-center gap-3">
+          <i class="fa-regular fa-comment fa-xl cursor-pointer" (click)="goSingle(item.id!)"></i>
+        </div>
         <div class="">
           <h4 class="font-semibold">ผู้เขียน</h4>
           <h5>{{ item.author }}</h5>
@@ -34,5 +41,5 @@
       }
     </div>
   </div>
-  }
+  } }
 </div>

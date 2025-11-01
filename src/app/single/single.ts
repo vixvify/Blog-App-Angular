@@ -1,45 +1,35 @@
-import { Component, effect, signal } from '@angular/core';
+import { Component, signal, effect } from '@angular/core';
 import { Blogservice } from '../../services/blog.service';
-import { Token } from '../../services/token.service';
 import { Blog } from '../../types/Blog';
+import { ActivatedRoute } from '@angular/router';
+import { Token } from '../../services/token.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
-import { KeywordService } from '../../services/keyword.service';
 
 @Component({
-  selector: 'app-home',
+  selector: 'app-single',
   imports: [],
-  templateUrl: './home.html',
-  styleUrl: './home.css',
+  templateUrl: './single.html',
+  styleUrl: './single.css',
 })
-export class Home {
+export class Single {
+  data = signal<Blog | undefined>(undefined);
+  id = signal(this.token.tokenSignal()?.id);
   constructor(
     private blogservice: Blogservice,
+    private route: ActivatedRoute,
     private token: Token,
-    private router: Router,
-    private keywordservice: KeywordService
+    private router: Router
   ) {
     effect(() => {
-      this.id.set(this.token.tokenSignal()?.id);
-      this.keyword.set(this.keywordservice.sharedKeyword());
-      this.getData();
+      this.blogservice.getSingle(this.route.snapshot.paramMap.get('id')!).subscribe({
+        next: (res: any) => {
+          this.data.set(res.data);
+        },
+        error: (err) => console.error('❌ เกิดข้อผิดพลาด', err),
+      });
     });
   }
-  data = signal<Blog[]>([]);
-  id = signal(this.token.tokenSignal()?.id);
-  keyword = signal(this.keywordservice.sharedKeyword());
-  isLoading = signal(false);
-
-  getData() {
-    this.blogservice.getData(this.keyword()).subscribe({
-      next: (latestData) => {
-        this.data.set(latestData.blogData);
-        this.isLoading.set(true);
-      },
-      error: (err) => console.error('❌ เกิดข้อผิดพลาด', err),
-    });
-  }
-
   confirmDel(id: string) {
     Swal.fire({
       title: 'ต้องการลบโพสต์หรือไม่',
@@ -64,7 +54,7 @@ export class Home {
           icon: 'success',
           draggable: true,
         });
-        this.getData();
+        this.router.navigate(['/']);
       },
       error: (err) => console.error('❌ เกิดข้อผิดพลาด', err),
     });
@@ -72,9 +62,5 @@ export class Home {
 
   editData(id: string) {
     this.router.navigate([`/editform/${id}`]);
-  }
-
-  goSingle(id: string) {
-    this.router.navigate([`/single/${id}`]);
   }
 }
